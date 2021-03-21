@@ -48,9 +48,9 @@ def data_ingestion():
 def display():
     my_cursor.execute('SELECT * FROM students')
     my_records = my_cursor.fetchall()
-    df = DataFrame(my_records, columns={'StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
-                                        'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'})
-    print(df)
+    df = pd.DataFrame(my_records, columns=['StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
+                                           'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'])
+    print(df.to_string())
     # del df
 
 
@@ -126,9 +126,9 @@ def display_by():
         print("Returning all Students that Major in " + major + "\n")
         my_cursor.execute('SELECT * FROM students WHERE Major = ?', val)
         my_records = my_cursor.fetchall()
-        df = DataFrame(my_records, columns={'StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
-                                            'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'})
-        print(df)
+        df = pd.DataFrame(my_records, columns=['StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
+                                               'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'])
+        print(df.to_string())
         del df
     if choice.upper() == "GPA":
         gpa = input("Enter the GPA you are looking for : ")
@@ -136,9 +136,9 @@ def display_by():
         print("Returning all Students that have a GPA of " + gpa + "\n")
         my_cursor.execute('SELECT * FROM students WHERE GPA = ?', val)
         my_records = my_cursor.fetchall()
-        df = DataFrame(my_records, columns={'StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
-                                            'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'})
-        print(df)
+        df = pd.DataFrame(my_records, columns=['StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
+                                               'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'])
+        print(df.to_string())
         del df
     if choice.upper() == "CITY":
         city = input("Enter the City you are looking for : ")
@@ -146,9 +146,9 @@ def display_by():
         print("Returning all Students that live in the City of " + city + "\n")
         my_cursor.execute('SELECT * FROM students WHERE City = ?', val)
         my_records = my_cursor.fetchall()
-        df = DataFrame(my_records, columns={'StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
-                                            'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'})
-        print(df)
+        df = pd.DataFrame(my_records, columns=['StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
+                                               'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'])
+        print(df.to_string())
         del df
     if choice.upper() == "STATE":
         state = input("Enter the State you are looking for : ")
@@ -156,9 +156,9 @@ def display_by():
         print("Returning all Students that live in the State of " + state + "\n")
         my_cursor.execute('SELECT * FROM students WHERE State = ?', val)
         my_records = my_cursor.fetchall()
-        df = DataFrame(my_records, columns={'StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
-                                            'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'})
-        print(df)
+        df = pd.DataFrame(my_records, columns=['StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
+                                               'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'])
+        print(df.to_string())
         del df
     if choice.upper() == "ADVISOR":
         advisor = input("Enter the Advisor you are looking for : ")
@@ -166,9 +166,9 @@ def display_by():
         print("Returning all Students that have " + advisor + " as their advisor\n")
         my_cursor.execute('SELECT * FROM students WHERE Advisor = ?', val)
         my_records = my_cursor.fetchall()
-        df = DataFrame(my_records, columns={'StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
-                                            'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'})
-        print(df)
+        df = pd.DataFrame(my_records, columns=['StudentID', 'FirstName', 'LastName', 'GPA', 'Major', 'FacultyAdvisor',
+                                               'Address', 'City', 'State', 'ZipCode', 'MobilePhoneNumber', 'isDeleted'])
+        print(df.to_string())
         del df
 
 
@@ -191,35 +191,39 @@ def main():
     print("[3] Update Student in Table")
     print("[4] Soft Delete Student in Table")
     print("[5] Search Table by Attribute")
-    print("[6] Exit\n")
+    print("[6] Display all")
+    print("[7] Exit\n")
     x = int(input(":"))
-    while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6:
+    while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
         print("INPUT INVALID. SELECT A NUMBER")
         print("[1] Import students.csv to Table")
         print("[2] Add new Student to Table")
         print("[3] Update Student in Table")
         print("[4] Soft Delete Student in Table")
         print("[5] Search Table by Attribute")
-        print("[6] Exit\n")
+        print("[6] Display all")
+        print("[7] Exit\n")
         x = int(input(":"))
     while not is_done:
         if x == 1:
             data_ingestion()
-            print("\n[1] Import students.csv to Table")
+            print("[1] Import students.csv to Table")
             print("[2] Add new Student to Table")
             print("[3] Update Student in Table")
             print("[4] Soft Delete Student in Table")
             print("[5] Search Table by Attribute")
-            print("[6] Exit\n")
+            print("[6] Display all")
+            print("[7] Exit\n")
             x = int(input(":"))
-            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6:
+            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
                 print("INPUT INVALID. SELECT A NUMBER")
                 print("[1] Import students.csv to Table")
                 print("[2] Add new Student to Table")
                 print("[3] Update Student in Table")
                 print("[4] Soft Delete Student in Table")
                 print("[5] Search Table by Attribute")
-                print("[6] Exit\n")
+                print("[6] Display all")
+                print("[7] Exit\n")
                 x = int(input(":"))
         elif x == 2:
             add_student()
@@ -228,16 +232,18 @@ def main():
             print("[3] Update Student in Table")
             print("[4] Soft Delete Student in Table")
             print("[5] Search Table by Attribute")
-            print("[6] Exit\n")
+            print("[6] Display all")
+            print("[7] Exit\n")
             x = int(input(":"))
-            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6:
+            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
                 print("INPUT INVALID. SELECT A NUMBER")
                 print("[1] Import students.csv to Table")
                 print("[2] Add new Student to Table")
                 print("[3] Update Student in Table")
                 print("[4] Soft Delete Student in Table")
                 print("[5] Search Table by Attribute")
-                print("[6] Exit\n")
+                print("[6] Display all")
+                print("[7] Exit\n")
                 x = int(input(":"))
         elif x == 3:
             update_student()
@@ -246,16 +252,18 @@ def main():
             print("[3] Update Student in Table")
             print("[4] Soft Delete Student in Table")
             print("[5] Search Table by Attribute")
-            print("[6] Exit\n")
+            print("[6] Display all")
+            print("[7] Exit\n")
             x = int(input(":"))
-            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6:
+            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
                 print("INPUT INVALID. SELECT A NUMBER")
                 print("[1] Import students.csv to Table")
                 print("[2] Add new Student to Table")
                 print("[3] Update Student in Table")
                 print("[4] Soft Delete Student in Table")
                 print("[5] Search Table by Attribute")
-                print("[6] Exit\n")
+                print("[6] Display all")
+                print("[7] Exit\n")
                 x = int(input(":"))
         elif x == 4:
             delete()
@@ -264,16 +272,18 @@ def main():
             print("[3] Update Student in Table")
             print("[4] Soft Delete Student in Table")
             print("[5] Search Table by Attribute")
-            print("[6] Exit\n")
+            print("[6] Display all")
+            print("[7] Exit\n")
             x = int(input(":"))
-            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6:
+            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
                 print("INPUT INVALID. SELECT A NUMBER")
                 print("[1] Import students.csv to Table")
                 print("[2] Add new Student to Table")
                 print("[3] Update Student in Table")
                 print("[4] Soft Delete Student in Table")
                 print("[5] Search Table by Attribute")
-                print("[6] Exit\n")
+                print("[6] Display all")
+                print("[7] Exit\n")
                 x = int(input(":"))
         elif x == 5:
             display_by()
@@ -282,18 +292,40 @@ def main():
             print("[3] Update Student in Table")
             print("[4] Soft Delete Student in Table")
             print("[5] Search Table by Attribute")
-            print("[6] Exit\n")
+            print("[6] Display all")
+            print("[7] Exit\n")
             x = int(input(":"))
-            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6:
+            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
                 print("INPUT INVALID. SELECT A NUMBER")
                 print("[1] Import students.csv to Table")
                 print("[2] Add new Student to Table")
                 print("[3] Update Student in Table")
                 print("[4] Soft Delete Student in Table")
                 print("[5] Search Table by Attribute")
-                print("[6] Exit\n")
+                print("[6] Display all")
+                print("[7] Exit\n")
                 x = int(input(":"))
         elif x == 6:
+            display()
+            print("\n[1] Import students.csv to Table")
+            print("[2] Add new Student to Table")
+            print("[3] Update Student in Table")
+            print("[4] Soft Delete Student in Table")
+            print("[5] Search Table by Attribute")
+            print("[6] Display all")
+            print("[7] Exit\n")
+            x = int(input(":"))
+            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
+                print("INPUT INVALID. SELECT A NUMBER")
+                print("[1] Import students.csv to Table")
+                print("[2] Add new Student to Table")
+                print("[3] Update Student in Table")
+                print("[4] Soft Delete Student in Table")
+                print("[5] Search Table by Attribute")
+                print("[6] Display all")
+                print("[7] Exit\n")
+                x = int(input(":"))
+        elif x == 7:
             delete_table()
             is_done = True;
         else:
@@ -304,16 +336,18 @@ def main():
             print("[3] Update Student in Table")
             print("[4] Soft Delete Student in Table")
             print("[5] Search Table by Attribute")
-            print("[6] Exit\n")
+            print("[6] Display all")
+            print("[7] Exit\n")
             x = int(input(":"))
-            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6:
+            while x != 1 and x != 2 and x != 3 and x != 4 and x != 5 and x != 6 and x != 7:
                 print("INPUT INVALID. SELECT A NUMBER")
                 print("[1] Import students.csv to Table")
                 print("[2] Add new Student to Table")
                 print("[3] Update Student in Table")
                 print("[4] Soft Delete Student in Table")
                 print("[5] Search Table by Attribute")
-                print("[6] Exit\n")
+                print("[6] Display all")
+                print("[7] Exit\n")
                 x = int(input(":"))
     print("Thank you for your time =) \nDeleting temporary students table \nExiting application")
 
